@@ -380,9 +380,11 @@ body {
     width: 90%;
     max-width: 500px;
     max-height: 90vh;
-    overflow-y: auto;
+    overflow: hidden; /* Giữ nguyên để modal bo góc */
     transform: scale(0.9);
     transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 
 .modal-overlay.show .modal {
@@ -423,7 +425,46 @@ body {
 }
 
 .modal-body {
-    padding: 1.5rem;
+    /* Đã sửa đổi padding: Tăng padding-right để tạo khoảng cách cho scrollbar */
+    padding: 1.5rem 2.0rem 2.5rem 1.5rem; /* VD: tăng padding phải lên 2.0rem */
+    /* Cú pháp padding: padding-top padding-right padding-bottom padding-left; */
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+/* Phần footer (nếu có), để đảm bảo nó vẫn nằm ngoài phần cuộn */
+.modal-footer {
+    padding: 1rem 1.5rem 1.5rem; /* Điều chỉnh padding cho footer */
+    border-top: 1px solid #e5e7eb; /* Nếu muốn có đường kẻ ngăn cách */
+    display: flex;
+    justify-content: flex-end; /* Căn phải các nút */
+    gap: 0.75rem; /* Khoảng cách giữa các nút */
+}
+
+
+/* Tùy chỉnh thanh cuộn cho trình duyệt WebKit (Chrome, Safari, Edge) */
+.modal-body::-webkit-scrollbar {
+    width: 8px; /* Độ rộng của thanh cuộn */
+}
+
+.modal-body::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Tùy chỉnh thanh cuộn cho Firefox */
+.modal-body {
+    scrollbar-width: thin;
+    scrollbar-color: #888 transparent;
 }
 
 .form-group {

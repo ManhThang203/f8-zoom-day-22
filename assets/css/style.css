@@ -425,8 +425,8 @@ body {
 }
 
 .modal-body {
-    /* Đã sửa đổi padding: Tăng padding-right để tạo khoảng cách cho scrollbar */
-    padding: 1.5rem 2.0rem 2.5rem 1.5rem; /* VD: tăng padding phải lên 2.0rem */
+    /* Đã sửa đổi padding: Tăng padding-right thêm nữa */
+    padding: 1.5rem 2.5rem 2.5rem 1.5rem; /* Tăng padding phải lên 2.5rem */
     /* Cú pháp padding: padding-top padding-right padding-bottom padding-left; */
     overflow-y: auto;
     flex-grow: 1;
@@ -444,7 +444,7 @@ body {
 
 /* Tùy chỉnh thanh cuộn cho trình duyệt WebKit (Chrome, Safari, Edge) */
 .modal-body::-webkit-scrollbar {
-    width: 8px; /* Độ rộng của thanh cuộn */
+    width: 12px; /* Tăng độ rộng của thanh cuộn để dễ thêm margin */
 }
 
 .modal-body::-webkit-scrollbar-track {
@@ -455,6 +455,10 @@ body {
 .modal-body::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 10px;
+    /* Dòng này ĐƯỢC THÊM VÀO: Tạo margin từ biên phải cho thanh trượt */
+    margin-right: 4px; /* Khoảng cách từ biên phải của rãnh scrollbar */
+    border: 3px solid transparent; /* Tạo viền trong suốt để "ăn" vào margin-right */
+    background-clip: padding-box; /* Đảm bảo background chỉ nằm trong phần padding của thumb */
 }
 
 .modal-body::-webkit-scrollbar-thumb:hover {

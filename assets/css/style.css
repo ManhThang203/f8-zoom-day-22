@@ -426,7 +426,7 @@ body {
 
 .modal-body {
     /* Đã sửa đổi padding: Tăng padding-right thêm nữa */
-    padding: 1.5rem 2.5rem 2.5rem 1.5rem; /* Tăng padding phải lên 2.5rem */
+    padding: 1.5rem; /* Tăng padding phải lên 2.5rem */
     /* Cú pháp padding: padding-top padding-right padding-bottom padding-left; */
     overflow-y: auto;
     flex-grow: 1;

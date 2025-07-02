@@ -158,6 +158,9 @@ todoList.onclick = (event) => {
     const task = todoTask[taskIndexToDelete];
     const modalDelete = $(".modal-delete");
 
+    // Xóa nội dung cũ nếu có để tránh trùng container
+    modalDelete.innerHTML = "";
+
     // Tạo nội dung mới
     const container = document.createElement("div");
     container.classList.add("container");
@@ -189,7 +192,7 @@ todoList.onclick = (event) => {
     // Xác nhận xoá khi nhấn "Yes"
     btnYesDelete.onclick = () => {
       if (taskIndexToDelete !== null) {
-        const deletedTask = todoTask.splice(taskIndexToDelete, 1)[0]; // Xoá và lấy nhiệm vụ đầu tiên
+        const deletedTask = todoTask.splice(taskIndexToDelete, 1)[0]; // Xoá và lấy nhiệm vụ
         saveTask();
         renderTask();
         showToast({

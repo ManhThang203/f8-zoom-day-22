@@ -619,22 +619,26 @@ body {
 
 #toast {
   position: fixed;
-  top: 32px;
+  bottom: 32px;
   right: 32px;
-  z-index: 999999;
+  z-index: 2;
 }
 
 .toast {
+  position: relative;
   display: flex;
   align-items: center;
-  background-color: #fff;
+  /* background-color: rgba(255, 255, 255, 0.5); */
   border-radius: 2px;
   padding: 20px 0;
   min-width: 400px;
   max-width: 450px;
   border-left: 4px solid;
   box-shadow: 0 5px 8px rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
   transition: all linear 0.3s;
+  overflow: hidden;
+  backdrop-filter: blur(15px);
 }
 
 @keyframes slideInLeft {
@@ -645,19 +649,57 @@ body {
   to {
     opacity: 1;
     transform: translateX(0);
-  }
+}
 }
 
 @keyframes fadeOut {
-  to {
-    opacity: 0;
-  }
+    to {
+        opacity: 0;
+        transform: translateX(150%);
+    }
 }
 
 .toast--success {
   border-color: #47d864;
 }
+.toast--success::before,
+.toast--info::before,
+.toast--warning::before,
+.toast--error::before
+{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 3px;
+    width: 100%;
+    border-radius:4px;
+}
+.toast--success::before{
+    background: #47d864;
+}
+.toast--info::before{
+    background: #2f86eb;
+}
+.toast--warning::before{
+    background: #ffc021;
+}
+.toast--error::before{
+    background: #ff623d;
+}
+.toast--success.active::before,
+.toast--info.active::before,
+.toast--warning.active::before,
+.toast--error.active::before
+{
+    animation: toast 5s linear forwards;
+}
 
+@keyframes toast {
+  100%{
+    right: 100%;
+  }
+}
 .toast--success .toast__icon {
   color: #47d864;
 }
@@ -665,6 +707,7 @@ body {
 .toast--info {
   border-color: #2f86eb;
 }
+
 
 .toast--info .toast__icon {
   color: #2f86eb;

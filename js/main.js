@@ -79,7 +79,7 @@ todoForm.onsubmit = (event) => {
       title: "Thông báo",
       message: "Bạn đã sửa thành nhiệm vụ thành công 😊",
       type: "success",
-      duration: 3000,
+      duration: 4500,
     });
   }
   // Nếu đang ở chế độ thêm mới
@@ -90,7 +90,7 @@ todoForm.onsubmit = (event) => {
       title: "Thông báo",
       message: "Bạn đã thêm  nhiệm vụ thành công 😊",
       type: "success",
-      duration: 3000,
+      duration: 4500,
     });
   }
 
@@ -197,9 +197,11 @@ todoList.onclick = (event) => {
         renderTask();
         showToast({
           title: "Thông báo",
-          message: `Bạn đã xóa nhiệm vụ "${deletedTask.title}" thành công 😢`,
+          message: `Bạn đã xóa nhiệm vụ ${EscapeHTML(
+            deletedTask.title
+          )} thành công 😢`,
           type: "success",
-          duration: 3000,
+          duration: 4500,
         });
         modalDelete.classList.remove("show");
         taskIndexToDelete = null;
@@ -220,14 +222,14 @@ todoList.onclick = (event) => {
         title: "Thông báo",
         message: "Bạn đã hoàn thành nhiệm vụ thành công 😘",
         type: "success",
-        duration: 1000,
+        duration: 4500,
       });
     } else {
       showToast({
         title: "Thông báo",
         message: "Bạn chưa hoàn thành nhiệm vụ 🤔. Cố gắng lên nào 🐱‍💻",
         type: "info",
-        duration: 1000,
+        duration: 4500,
       });
     }
   }
@@ -237,8 +239,18 @@ todoList.onclick = (event) => {
 searchInput.oninput = (event) => {
   const searchTerm = event.target.value.toLowerCase(); // Lấy từ khóa tìm kiếm và chuyển thành chữ thường
   console.log(searchTerm);
+
   // Tự động chuyển về bộ lọc "All Tasks" khi bắt đầu tìm kiếm
   currentFilter = "all";
+
+  tabButtons.forEach((btn) => {
+    const text = btn.textContent.trim();
+    if (text === "All Task") {
+      btn.classList.add("active");
+    } else {
+      btn.classList.remove("active");
+    }
+  });
   updateActiveClassForTabs(); // Cập nhật trạng thái active của các tab lọc
   renderTask(searchTerm); // Hiển thị lại tác vụ với từ khóa tìm kiếm
 };
@@ -359,6 +371,7 @@ function updateActiveClassForTabs() {
   tabButtons.forEach((btn) => {
     // btn.classList.remove("active"); // Xóa class "active" khỏi tất cả các nút
     const buttonText = btn.textContent.trim();
+    console.log(buttonText);
     if (currentFilter === "all" && buttonText === "All Task") {
       btn.classList.add("active");
     }
@@ -388,10 +401,10 @@ function showToast({
   if (main) {
     const toast = document.createElement("div");
     // thêm class
-    toast.classList.add("toast", `toast--${type}`);
+    toast.classList.add("toast", `toast--${type}`, "active");
 
     const delay = (duration / 1000).toFixed(2);
-    toast.style.animation = `slideInLeft .3s ease, fadeOut 1s linear  ${delay}s forwards`;
+    toast.style.animation = `slideInLeft 0.3s ease, fadeOut .6s ease  ${delay}s forwards`;
     // danh sach icon
     const icons = {
       success: "fa-regular fa-circle-check",
@@ -419,7 +432,7 @@ function showToast({
 
     // xóa toast khỏi Dom
     const removeToast = duration + 1000;
-    // lấy ra Id khi xóa
+    // // lấy ra Id khi xóa
     const autoRemoveId = setTimeout(() => {
       main.removeChild(toast);
     }, removeToast);
